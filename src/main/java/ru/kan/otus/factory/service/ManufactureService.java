@@ -34,12 +34,20 @@ public class ManufactureService {
                         .append(" | ")
                         .append(item.getName())
                 ));
+
         String orderedParts = reader
                 .readLine("Введите номер необходимых деталей, через запятую: ");
 
         List<AssemblyPlan> items = Arrays.asList(orderedParts.split(","))
                 .stream()
-                .map(s -> stockService.findById(Integer.valueOf(s)))
+                .map(s -> {
+                    try {
+                        return stockService.findById(Integer.valueOf(s));
+                    } catch (Exception exception) {
+                        System.out.println("Детали под номером " + s + " нет на складе");
+                        return null;
+                    }
+                })
                 .filter(s -> s != null)
                 .collect(Collectors.toList());
 

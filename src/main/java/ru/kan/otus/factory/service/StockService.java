@@ -25,7 +25,7 @@ public class StockService {
         return STOCK_ITEMS;
     }
 
-    public AssemblyPlan findById(Integer id) {
-        return STOCK_ITEMS.stream().filter(item -> item.getId().equals(id)).findFirst().orElse(null);
+    public AssemblyPlan findById(Integer id) throws Exception {
+        return STOCK_ITEMS.stream().filter(item -> item.getId().equals(id)).findFirst().orElseThrow(() -> new Exception("Itme not found"));
     }
 }
