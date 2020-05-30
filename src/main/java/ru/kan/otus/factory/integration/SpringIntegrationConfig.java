@@ -8,6 +8,7 @@ import org.springframework.integration.dsl.MessageChannels;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.scheduling.PollerMetadata;
 import org.springframework.messaging.MessageChannel;
+import ru.kan.otus.factory.domain.AssemblyPlan;
 
 @Configuration
 public class SpringIntegrationConfig {
@@ -28,9 +29,9 @@ public class SpringIntegrationConfig {
     }
 
     @Bean
-    public IntegrationFlow restarauntFlow() {
+    public IntegrationFlow factoryFlow() {
         return IntegrationFlows.from("ordersChannel")
-                .split()
+                .split(AssemblyPlan.class, AssemblyPlan::getName)
                 .handle("assemblyLine", "process")
                 .aggregate()
                 .channel("partsChannel")
