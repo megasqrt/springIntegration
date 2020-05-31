@@ -11,5 +11,5 @@ import java.util.List;
 public interface RobotPicker {
 
     @Gateway(requestChannel = "ordersChannel", replyChannel = "partsChannel")
-    List<Car> processOrder(List<AssemblyPlan> items);
+    List<Car> processOrder(AssemblyPlan items);
 }

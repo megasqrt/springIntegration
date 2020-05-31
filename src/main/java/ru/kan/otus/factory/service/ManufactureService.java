@@ -51,11 +51,22 @@ public class ManufactureService {
                 .filter(s -> s != null)
                 .collect(Collectors.toList());
 
-        List<Car> part = gateway.processOrder(items);
+        //List<Car> part = gateway.processOrder(items);
 
-        System.out.println(part.size() > 1 ? "Необходимые детали доставлены:" : "Необходимая деталь доставлена:");
+      /*  System.out.println(part.size() > 1 ? "Необходимые детали доставлены:" : "Необходимая деталь доставлена:");
         part.forEach(System.out::println);
         System.out.println("И установлены на автомобиль");
-        return part;
+        return part;*/
+        return null;
+    }
+
+    public void startFactory() throws InterruptedException {
+
+        for (int i = 1; i <= 10; i++) {
+            AssemblyPlan s = stockService.generateAssemblyPlan();
+            System.out.println("Поступил заказ на " + s.getName());
+            System.out.println("получена " + gateway.processOrder(s));
+            Thread.sleep(2000);
+        }
     }
 }

@@ -12,7 +12,12 @@ public class ShellCommand {
     private final ManufactureService orderService;
 
     @ShellMethod(value = "Запуск сборки", key = {"dash", "d", "s", "start"})
-    public void order() {
+    public void order() throws InterruptedException {
+        orderService.startFactory();
+    }
+
+    @ShellMethod(value = "Запуск ручного заказа", key = {"hand", "h"})
+    public void handOrder() {
         orderService.processOrder();
     }
 }
